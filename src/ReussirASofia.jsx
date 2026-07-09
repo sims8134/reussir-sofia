@@ -934,7 +934,7 @@ export default function ReussirASofia() {
             <div className="relative">
               <FadeInImage
                 src={PHOTOS.hero}
-                alt="Sofia, Bulgarie"
+                alt="Cathédrale Alexandre-Nevski à Sofia, Bulgarie"
                 aspectClass="aspect-[4/5] md:aspect-[3/4]"
                 className="shadow-2xl"
               />
@@ -974,7 +974,7 @@ export default function ReussirASofia() {
           <div className="relative">
             <FadeInImage
               src={PHOTOS.packages}
-              alt="Sofia, café et terrasse"
+              alt="Rue de Sofia sous la neige en hiver"
               aspectClass="aspect-[16/9] md:aspect-[21/9]"
               className="shadow-xl"
               objectPosition="center 60%"
@@ -1024,7 +1024,7 @@ export default function ReussirASofia() {
           <div className="relative">
             <FadeInImage
               src={PHOTOS.why}
-              alt="Sofia, ambiance urbaine"
+             alt="Rue Vitosha, artère commerçante de Sofia"
               aspectClass="aspect-[16/9] md:aspect-[21/9]"
               className="shadow-xl"
               objectPosition="center 65%"
@@ -1158,7 +1158,7 @@ export default function ReussirASofia() {
             <div>
               <FadeInImage
                 src={PHOTOS.custom}
-                alt="Sofia panoramique"
+                alt="Vue panoramique sur Sofia et le mont Vitosha"
                 aspectClass="aspect-[4/3]"
                 className="shadow-xl"
               />
@@ -1253,7 +1253,7 @@ export default function ReussirASofia() {
 
               <FadeInImage
                 src={PHOTOS.about}
-                alt="Détail authentique de Sofia"
+                alt="Théâtre national Ivan Vazov à Sofia"
                 aspectClass="aspect-[4/5]"
                 className="mt-10 shadow-xl"
               />
