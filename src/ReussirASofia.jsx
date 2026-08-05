@@ -800,7 +800,7 @@ export default function ReussirASofia({ lang = "fr" }) {
     <div className="min-h-screen bg-[#F5EFE0] text-[#2C2620]">
       {/* Métadonnées de la route + données structurées (hissées vers <head> par React 19) */}
       <Seo lang={lang} page="home" />
-      <StructuredData />
+      <StructuredData lang={lang} />
 
       {/* ---------- NAVBAR ---------- */}
       <nav className="sticky top-0 z-50 bg-[#F5EFE0]/85 backdrop-blur-md border-b border-[#3D352815]">
