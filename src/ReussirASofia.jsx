@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import ContactForm from "./components/ContactForm";
-import { Link } from 'react-router-dom'
+import Seo from "./Seo";
+import StructuredData from "./StructuredData";
+import { Link } from "react-router-dom";
 import {
   ArrowRight,
   Check,
@@ -708,8 +710,9 @@ const PHOTOS = {
 
 /* ==================== COMPOSANT FADE-IN IMAGE ====================
    Animation au scroll + paramètre objectPosition pour contrôler le cadrage.
+   `eager` : à réserver à l'image visible au chargement (hero = LCP).
 ================================================================= */
-const FadeInImage = ({ src, alt, className = "", aspectClass = "aspect-[4/3]", objectPosition = "center" }) => {
+const FadeInImage = ({ src, alt, className = "", aspectClass = "aspect-[4/3]", objectPosition = "center", eager = false }) => {
   const [visible, setVisible] = useState(false);
   const ref = useRef(null);
 
@@ -737,7 +740,8 @@ const FadeInImage = ({ src, alt, className = "", aspectClass = "aspect-[4/3]", o
       <img
         src={src}
         alt={alt}
-        loading="lazy"
+        loading={eager ? "eager" : "lazy"}
+        fetchPriority={eager ? "high" : "auto"}
         style={{ objectPosition }}
         className={`w-full h-full object-cover transition-transform duration-1000 ${
           visible ? "scale-100" : "scale-105"
@@ -791,6 +795,15 @@ export default function ReussirASofia() {
 
   return (
     <div className="min-h-screen bg-[#F5EFE0] text-[#2C2620]">
+      {/* Métadonnées de la route / + données structurées (hissées vers <head> par React 19) */}
+      <Seo
+        title="Expatriation en Bulgarie sans la galère · Réussir à Sofia"
+        description="Couple franco-bulgare basé à Sofia. Tourisme, expatriation, carte de résidence, création d'EOOD. Accompagnement humain et complet en français, sur place. À partir de 250 €."
+        canonical="https://reussir-sofia.fr/"
+        ogTitle="Réussir à Sofia · Votre expatriation en Bulgarie, sans la galère"
+      />
+      <StructuredData />
+
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
         .font-display { font-family: 'Fraunces', Georgia, serif; font-optical-sizing: auto; }
@@ -937,6 +950,7 @@ export default function ReussirASofia() {
                 alt="Cathédrale Alexandre-Nevski à Sofia, Bulgarie"
                 aspectClass="aspect-[4/5] md:aspect-[3/4]"
                 className="shadow-2xl"
+                eager
               />
               <div className="hidden md:flex absolute -bottom-6 -left-6 items-center gap-3 bg-[#F5EFE0] rounded-2xl px-5 py-3 shadow-xl border border-[#3D352820]">
                 <div className="w-10 h-10 rounded-full bg-[#6B7F4A] flex items-center justify-center text-[#F5EFE0]">
@@ -1024,7 +1038,7 @@ export default function ReussirASofia() {
           <div className="relative">
             <FadeInImage
               src={PHOTOS.why}
-             alt="Rue Vitosha, artère commerçante de Sofia"
+              alt="Rue Vitosha, artère commerçante de Sofia"
               aspectClass="aspect-[16/9] md:aspect-[21/9]"
               className="shadow-xl"
               objectPosition="center 65%"
@@ -1321,7 +1335,7 @@ export default function ReussirASofia() {
             {t.finalCta.subtitle}
           </p>
 
-        <div className="mt-12">
+          <div className="mt-12">
             <ContactForm lang={lang} />
           </div>
         </div>
@@ -1339,8 +1353,8 @@ export default function ReussirASofia() {
             </div>
             <div className="text-sm space-y-2 md:text-right">
               <Link to="/legal" className="hover:text-[#C8985C] transition-colors">
-  {t.footer.legal}
-</Link>
+                {t.footer.legal}
+              </Link>
               <div className="text-xs text-[#F5EFE0]/40">{t.footer.copy}</div>
             </div>
           </div>

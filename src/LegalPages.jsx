@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ChevronDown, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import Seo from "./Seo";
 
 /* ─────────────────────────────────────────
    CONTENU LÉGAL – FR / EN / ES
@@ -29,12 +30,12 @@ const legal = {
             ["Gérant", "Simon Henri Beltran (ressortissant français)"],
             ["Capital social", "1 022 €"],
             ["TVA", "Non assujetti"],
-            ["Email", "contact@reussir-sofia.com"],
+            ["Email", "contact@reussir-sofia.fr"],
           ],
         },
         {
           heading: "2. Hébergement",
-          text: "L'hébergeur du site sera précisé lors de la mise en ligne. Pour toute question : contact@reussir-sofia.com.",
+          text: "L'hébergeur du site sera précisé lors de la mise en ligne. Pour toute question : contact@reussir-sofia.fr.",
         },
         {
           heading: "3. Directeur de la publication",
@@ -97,7 +98,7 @@ const legal = {
         },
         {
           heading: "6. Droit de rétractation",
-          text: "Le Client dispose de 14 jours calendaires à compter de la signature du devis pour exercer son droit de rétractation, par écrit à contact@reussir-sofia.com. Ce droit ne s'applique pas si la prestation a débuté à la demande expresse du Client avant l'expiration du délai.",
+          text: "Le Client dispose de 14 jours calendaires à compter de la signature du devis pour exercer son droit de rétractation, par écrit à contact@reussir-sofia.fr. Ce droit ne s'applique pas si la prestation a débuté à la demande expresse du Client avant l'expiration du délai.",
         },
         {
           heading: "7. Annulation et remboursement",
@@ -135,7 +136,7 @@ const legal = {
           box: [
             ["Société", "SOC TRADE BULGARIA EOOD — EIK 208209146"],
             ["Adresse", "64 rue Maragidik, entrée A, arrondissement Poduyane, Sofia 1505, Bulgarie"],
-            ["Email", "contact@reussir-sofia.com"],
+            ["Email", "contact@reussir-sofia.fr"],
           ],
         },
         {
@@ -174,7 +175,7 @@ const legal = {
         },
         {
           heading: "6. Vos droits (RGPD)",
-          text: "Vous disposez des droits d'accès, rectification, effacement, limitation, portabilité et opposition. Pour les exercer : contact@reussir-sofia.com. En cas de réponse insatisfaisante, vous pouvez saisir la CPDP bulgare (www.cpdp.bg).",
+          text: "Vous disposez des droits d'accès, rectification, effacement, limitation, portabilité et opposition. Pour les exercer : contact@reussir-sofia.fr. En cas de réponse insatisfaisante, vous pouvez saisir la CPDP bulgare (www.cpdp.bg).",
         },
         {
           heading: "7. Cookies",
@@ -210,12 +211,12 @@ const legal = {
             ["Manager", "Simon Henri Beltran (French national)"],
             ["Share capital", "€1,022"],
             ["VAT", "Not registered"],
-            ["Email", "contact@reussir-sofia.com"],
+            ["Email", "contact@reussir-sofia.fr"],
           ],
         },
         {
           heading: "2. Hosting",
-          text: "Hosting provider details will be published upon website launch. Contact: contact@reussir-sofia.com.",
+          text: "Hosting provider details will be published upon website launch. Contact: contact@reussir-sofia.fr.",
         },
         {
           heading: "3. Publication Director",
@@ -278,7 +279,7 @@ const legal = {
         },
         {
           heading: "6. Right of Withdrawal",
-          text: "The Client has 14 calendar days from signing the quote to withdraw, in writing to contact@reussir-sofia.com. This right does not apply if the service has commenced at the Client's express request.",
+          text: "The Client has 14 calendar days from signing the quote to withdraw, in writing to contact@reussir-sofia.fr. This right does not apply if the service has commenced at the Client's express request.",
         },
         {
           heading: "7. Cancellation & Refunds",
@@ -316,7 +317,7 @@ const legal = {
           box: [
             ["Company", "SOC TRADE BULGARIA EOOD — EIK 208209146"],
             ["Address", "64 Maragidik Street, Entrance A, Poduyane district, Sofia 1505, Bulgaria"],
-            ["Email", "contact@reussir-sofia.com"],
+            ["Email", "contact@reussir-sofia.fr"],
           ],
         },
         {
@@ -355,7 +356,7 @@ const legal = {
         },
         {
           heading: "6. Your Rights (GDPR)",
-          text: "You have rights of access, rectification, erasure, restriction, portability, and objection. Contact: contact@reussir-sofia.com. You may also lodge a complaint with the Bulgarian CPDP (www.cpdp.bg).",
+          text: "You have rights of access, rectification, erasure, restriction, portability, and objection. Contact: contact@reussir-sofia.fr. You may also lodge a complaint with the Bulgarian CPDP (www.cpdp.bg).",
         },
         {
           heading: "7. Cookies",
@@ -391,12 +392,12 @@ const legal = {
             ["Gerente", "Simon Henri Beltran (ciudadano francés)"],
             ["Capital social", "1.022 €"],
             ["IVA", "No inscrito"],
-            ["Email", "contact@reussir-sofia.com"],
+            ["Email", "contact@reussir-sofia.fr"],
           ],
         },
         {
           heading: "2. Alojamiento web",
-          text: "Los datos del proveedor de alojamiento se publicarán con el lanzamiento del sitio. Contacto: contact@reussir-sofia.com.",
+          text: "Los datos del proveedor de alojamiento se publicarán con el lanzamiento del sitio. Contacto: contact@reussir-sofia.fr.",
         },
         {
           heading: "3. Director de publicación",
@@ -459,7 +460,7 @@ const legal = {
         },
         {
           heading: "6. Derecho de desistimiento",
-          text: "El Cliente dispone de 14 días naturales desde la firma del presupuesto para desistir, por escrito a contact@reussir-sofia.com. Este derecho no aplica si el servicio ha comenzado a petición expresa del Cliente.",
+          text: "El Cliente dispone de 14 días naturales desde la firma del presupuesto para desistir, por escrito a contact@reussir-sofia.fr. Este derecho no aplica si el servicio ha comenzado a petición expresa del Cliente.",
         },
         {
           heading: "7. Cancelación y reembolso",
@@ -497,7 +498,7 @@ const legal = {
           box: [
             ["Sociedad", "SOC TRADE BULGARIA EOOD — EIK 208209146"],
             ["Dirección", "Calle Maragidik 64, Entrada A, Distrito Poduyane, Sofía 1505, Bulgaria"],
-            ["Email", "contact@reussir-sofia.com"],
+            ["Email", "contact@reussir-sofia.fr"],
           ],
         },
         {
@@ -536,7 +537,7 @@ const legal = {
         },
         {
           heading: "6. Sus derechos (RGPD)",
-          text: "Dispone de derechos de acceso, rectificación, supresión, limitación, portabilidad y oposición. Contacto: contact@reussir-sofia.com. También puede reclamar ante la CPDP búlgara (www.cpdp.bg).",
+          text: "Dispone de derechos de acceso, rectificación, supresión, limitación, portabilidad y oposición. Contacto: contact@reussir-sofia.fr. También puede reclamar ante la CPDP búlgara (www.cpdp.bg).",
         },
         {
           heading: "7. Cookies",
@@ -643,6 +644,11 @@ export default function LegalPages() {
       className="min-h-screen bg-[#F5EFE0] text-[#2C2620]"
       style={{ fontFamily: "'DM Sans', system-ui, sans-serif" }}
     >
+      <Seo
+        title="Mentions légales, CGV & confidentialité · Réussir à Sofia"
+        description="Mentions légales, conditions générales de vente et politique de confidentialité de Réussir à Sofia — SOC TRADE BULGARIA EOOD, Sofia, Bulgarie."
+        canonical="https://reussir-sofia.fr/legal"
+      />
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600&family=DM+Sans:wght@300;400;500;600;700&display=swap');
         .font-display { font-family: 'Fraunces', Georgia, serif; }
@@ -742,7 +748,7 @@ export default function LegalPages() {
             </span>
             {" "}— SOC TRADE BULGARIA EOOD · EIK 208209146
           </div>
-          <div>contact@reussir-sofia.com</div>
+          <div>contact@reussir-sofia.fr</div>
           <div className="text-[#F5EFE0]/30">© 2026 · Tous droits réservés</div>
         </div>
       </footer>

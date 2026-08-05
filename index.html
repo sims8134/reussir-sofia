@@ -1,150 +1,21 @@
 <!doctype html>
 <html lang="fr">
   <head>
-    <!-- ========== Méta de base ========== -->
+    <!-- Head réduit aux balises réellement globales.
+         Title, description, canonical, hreflang, Open Graph, Twitter et
+         JSON-LD sont désormais rendus PAR ROUTE dans les composants React
+         (Seo.jsx + blocs JSON-LD de ReussirASofia) et capturés dans le HTML
+         final par le prerender. Ne pas les redéclarer ici : doublons. -->
     <meta charset="UTF-8" />
     <meta name="google-site-verification" content="WMWSo7RF5_mGlawHVf3VNkngI2hwdhwZXlKdOVR6ZhM" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <!-- ========== Favicon ========== -->
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
 
-    <!-- ========== SEO principal ========== -->
-    <title>Réussir à Sofia · Expatriation et création d'entreprise en Bulgarie accompagnées par un couple franco-bulgare</title>
-    <meta
-      name="description"
-      content="Couple franco-bulgare basé à Sofia. Tourisme, expatriation, carte de résidence, création d'EOOD. Accompagnement humain et complet en français, sur place. À partir de 250 €."
-    />
-    <meta
-      name="keywords"
-      content="expatriation Bulgarie, vivre à Sofia, créer entreprise Bulgarie, EOOD Sofia, carte de résidence Bulgarie, déménager en Bulgarie, expatrié français Sofia, conseil expatriation Bulgarie"
-    />
-    <meta name="author" content="Réussir à Sofia" />
-    <meta name="robots" content="index, follow" />
-    <meta name="language" content="French" />
-    <link rel="canonical" href="https://reussir-sofia.fr/" />
-
-    <!-- ========== Open Graph (Facebook, LinkedIn, WhatsApp) ========== -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://reussir-sofia.fr/" />
-    <meta
-      property="og:title"
-      content="Réussir à Sofia · Votre expatriation en Bulgarie, sans la galère"
-    />
-    <meta
-      property="og:description"
-      content="Un couple franco-bulgare vous accompagne sur place. Tourisme, expatriation, création d'EOOD. À partir de 250 €."
-    />
-    <meta property="og:image" content="https://reussir-sofia.fr/og-image.jpg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:locale" content="fr_FR" />
-    <meta property="og:locale:alternate" content="en_US" />
-    <meta property="og:site_name" content="Réussir à Sofia" />
-
-    <!-- ========== Twitter Card ========== -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://reussir-sofia.fr/" />
-    <meta
-      name="twitter:title"
-      content="Réussir à Sofia · Votre expatriation en Bulgarie, sans la galère"
-    />
-    <meta
-      name="twitter:description"
-      content="Un couple franco-bulgare vous accompagne sur place. Tourisme, expatriation, création d'EOOD."
-    />
-    <meta name="twitter:image" content="https://reussir-sofia.fr/og-image.jpg" />
-
-    <!-- ========== Géolocalisation ========== -->
-    <meta name="geo.region" content="BG-22" />
-    <meta name="geo.placename" content="Sofia" />
-    <meta name="geo.position" content="42.6977;23.3219" />
-    <meta name="ICBM" content="42.6977, 23.3219" />
-
-    <!-- ========== Hreflang (FR/EN sur la même page) ========== -->
-
-    <link rel="alternate" hreflang="x-default" href="https://reussir-sofia.fr/" />
-
-    <!-- ========== Préchargement des polices (perf) ========== -->
+    <!-- À supprimer le jour où les polices seront auto-hébergées (Fontsource) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <!-- ========== Schema.org JSON-LD : LocalBusiness ========== -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "ProfessionalService",
-        "name": "Réussir à Sofia",
-        "description": "Accompagnement expatriation et création d'entreprise en Bulgarie pour francophones. Couple franco-bulgare basé à Sofia.",
-        "url": "https://reussir-sofia.fr",
-        "email": "contact@reussir-sofia.fr",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Sofia",
-          "addressCountry": "BG"
-        },
-        "geo": {
-          "@type": "GeoCoordinates",
-          "latitude": 42.6977,
-          "longitude": 23.3219
-        },
-        "areaServed": [
-          { "@type": "Country", "name": "Bulgaria" },
-          { "@type": "City", "name": "Sofia" }
-        ],
-        "availableLanguage": ["French", "English", "Bulgarian"],
-        "priceRange": "€€",
-        "serviceType": [
-          "Conseil en expatriation",
-          "Création d'entreprise EOOD",
-          "Cours de bulgare",
-          "Accompagnement touristique"
-        ],
-        "offers": {
-          "@type": "AggregateOffer",
-          "lowPrice": "250",
-          "highPrice": "1490",
-          "priceCurrency": "EUR",
-          "offerCount": "3"
-        }
-      }
-    </script>
-
-    <!-- ========== Schema.org JSON-LD : FAQ ========== -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Combien coûte un accompagnement expatriation en Bulgarie ?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Nos packages vont de 250 € (Découverte Sofia) à 1490 € (Expat Business avec création d'EOOD). Les frais tiers (avocat, comptable) sont facturés séparément."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Faut-il parler bulgare pour s'installer en Bulgarie ?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Non, ce n'est pas obligatoire. Beaucoup de Bulgares à Sofia parlent anglais, et nous gérons les démarches administratives en bulgare pour vous. Nous incluons aussi 4 cours de bulgare dans nos packages Installation et Business."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Combien de temps pour obtenir la carte de résidence bulgare ?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Pour un citoyen UE, la procédure prend généralement entre 4 et 12 semaines selon la complétude du dossier."
-            }
-          }
-        ]
-      }
-    </script>
   </head>
   <body>
     <div id="root"></div>
