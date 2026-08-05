@@ -1,1 +1,35 @@
 @import "tailwindcss";
+
+/* ==========================================================
+   Scrollbar aux couleurs du site
+   Vert olive #6B7F4A sur fond crème #EDE4D0.
+   `scrollbar-color` couvre Firefox ; les pseudo-elements
+   ::-webkit-* couvrent Chrome, Edge, Safari et Opera.
+========================================================== */
+html {
+  scrollbar-color: #6B7F4A #EDE4D0;
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #EDE4D0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #6B7F4A;
+  border-radius: 999px;
+  border: 2px solid #EDE4D0; /* marge interne : la barre parait plus fine */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5A6B3F;
+}
+
+::-webkit-scrollbar-corner {
+  background: #EDE4D0;
+}

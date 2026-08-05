@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Send, Mail, Check, AlertCircle, Loader2 } from "lucide-react";
 
 /* ============================================================
@@ -6,16 +6,27 @@ import { Send, Mail, Check, AlertCircle, Loader2 } from "lucide-react";
    ------------------------------------------------------------
    - Trilingue (fr / en / es) : passez la prop `lang`
    - Envoie vers contact@reussir-sofia.fr via Web3Forms
+   - Anti-spam : honeypot Web3Forms (botcheck) + Cloudflare Turnstile
    - Lien mailto: en secours
    ------------------------------------------------------------
-   AVANT MISE EN LIGNE — une seule chose à faire :
-   1. Allez sur https://web3forms.com
-   2. Entrez contact@reussir-sofia.fr, recevez votre clé (gratuit)
-   3. Collez-la dans ACCESS_KEY ci-dessous
+   TURNSTILE — trois choses a faire une seule fois :
+   1. Cloudflare > Turnstile > Add widget, mode Invisible,
+      domaines : reussir-sofia.fr et localhost
+   2. Site Key -> variable d'environnement VITE_TURNSTILE_SITE_KEY
+      (fichier .env en local, et Vercel > Settings > Environment
+      Variables pour la production)
+   3. Secret Key -> tableau de bord Web3Forms, section Spam
+      Protection : c'est Web3Forms qui verifie le jeton cote
+      serveur. Sans cette etape le widget ne protege RIEN.
+   Si la variable est absente, le formulaire fonctionne sans
+   Turnstile (le honeypot reste actif).
    ============================================================ */
 
 const ACCESS_KEY = "375be209-24af-4ea8-8dfe-5d433cea25a6";
 const CONTACT_EMAIL = "contact@reussir-sofia.fr";
+const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY || "";
+const TURNSTILE_SRC =
+  "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
 
 const formContent = {
   fr: {
@@ -34,6 +45,9 @@ const formContent = {
     orMail: "Ou par email :",
     invalidEmail: "Merci d'entrer un email valide.",
     required: "Ce champ est requis.",
+    botTitle: "Vérification anti-spam en cours",
+    botText: "Patientez une seconde, puis renvoyez le message.",
+    protectedBy: "Protégé par Cloudflare Turnstile",
   },
   en: {
     name: "Your name",
@@ -51,6 +65,9 @@ const formContent = {
     orMail: "Or by email:",
     invalidEmail: "Please enter a valid email.",
     required: "This field is required.",
+    botTitle: "Anti-spam check in progress",
+    botText: "Wait a second, then send the message again.",
+    protectedBy: "Protected by Cloudflare Turnstile",
   },
   es: {
     name: "Tu nombre",
@@ -68,6 +85,9 @@ const formContent = {
     orMail: "O por email:",
     invalidEmail: "Introduce un email válido.",
     required: "Este campo es obligatorio.",
+    botTitle: "Verificación anti-spam en curso",
+    botText: "Espera un segundo y vuelve a enviar el mensaje.",
+    protectedBy: "Protegido por Cloudflare Turnstile",
   },
 };
 
@@ -76,7 +96,43 @@ export default function ContactForm({ lang = "fr" }) {
 
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [errors, setErrors] = useState({});
-  const [status, setStatus] = useState("idle"); // idle | sending | success | error
+  const [status, setStatus] = useState("idle"); // idle | sending | success | error | pending
+  const [token, setToken] = useState("");
+
+  const turnstileRef = useRef(null);
+  const widgetId = useRef(null);
+
+  /* ---- Chargement + rendu du widget Turnstile ---- */
+  useEffect(() => {
+    if (!TURNSTILE_SITE_KEY) return;
+
+    const renderWidget = () => {
+      if (!window.turnstile || !turnstileRef.current || widgetId.current !== null)
+        return;
+      widgetId.current = window.turnstile.render(turnstileRef.current, {
+        sitekey: TURNSTILE_SITE_KEY,
+        callback: (t) => setToken(t),
+        "expired-callback": () => setToken(""),
+        "error-callback": () => setToken(""),
+      });
+    };
+
+    if (window.turnstile) {
+      renderWidget();
+      return;
+    }
+
+    let script = document.querySelector(`script[src="${TURNSTILE_SRC}"]`);
+    if (!script) {
+      script = document.createElement("script");
+      script.src = TURNSTILE_SRC;
+      script.async = true;
+      script.defer = true;
+      document.head.appendChild(script);
+    }
+    script.addEventListener("load", renderWidget);
+    return () => script.removeEventListener("load", renderWidget);
+  }, []);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -97,20 +153,34 @@ export default function ContactForm({ lang = "fr" }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
+
+    // Turnstile actif mais jeton pas encore emis : on invite a reessayer.
+    if (TURNSTILE_SITE_KEY && !token) {
+      setStatus("pending");
+      return;
+    }
+
     setStatus("sending");
+
+    const payload = {
+      access_key: ACCESS_KEY,
+      subject: `Nouveau contact — ${form.name} (Réussir à Sofia)`,
+      from_name: "Réussir à Sofia",
+      name: form.name,
+      email: form.email,
+      message: form.message,
+      botcheck: "", // honeypot Web3Forms : rempli = requete rejetee
+    };
+    if (token) payload["cf-turnstile-response"] = token;
 
     try {
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          access_key: ACCESS_KEY,
-          subject: `Nouveau contact — ${form.name} (Réussir à Sofia)`,
-          from_name: "Réussir à Sofia",
-          name: form.name,
-          email: form.email,
-          message: form.message,
-        }),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
       });
       const data = await res.json();
       if (data.success) {
@@ -118,9 +188,18 @@ export default function ContactForm({ lang = "fr" }) {
         setForm({ name: "", email: "", message: "" });
       } else {
         setStatus("error");
+        // Un jeton Turnstile ne sert qu'une fois : on en redemande un.
+        if (widgetId.current !== null && window.turnstile) {
+          window.turnstile.reset(widgetId.current);
+          setToken("");
+        }
       }
     } catch {
       setStatus("error");
+      if (widgetId.current !== null && window.turnstile) {
+        window.turnstile.reset(widgetId.current);
+        setToken("");
+      }
     }
   };
 
@@ -149,6 +228,16 @@ export default function ContactForm({ lang = "fr" }) {
       noValidate
       className="max-w-md mx-auto bg-[#F5EFE0] rounded-2xl p-6 md:p-8 border border-[#3D352820] shadow-xl text-left"
     >
+      {/* Honeypot : invisible pour un humain, rempli par les robots */}
+      <input
+        type="checkbox"
+        name="botcheck"
+        tabIndex={-1}
+        autoComplete="off"
+        className="hidden"
+        aria-hidden="true"
+      />
+
       {/* Nom */}
       <div className="mb-4">
         <label htmlFor="cf-name" className="block text-sm font-semibold text-[#2C2620] mb-1.5">
@@ -200,6 +289,9 @@ export default function ContactForm({ lang = "fr" }) {
         {errors.message && <p className="text-xs text-[#B4472F] mt-1">{errors.message}</p>}
       </div>
 
+      {/* Conteneur Turnstile (invisible en mode Invisible, visible sinon) */}
+      <div ref={turnstileRef} className="mb-4 flex justify-center empty:mb-0" />
+
       {/* Bouton */}
       <button
         type="submit"
@@ -218,6 +310,16 @@ export default function ContactForm({ lang = "fr" }) {
           </>
         )}
       </button>
+
+      {/* Vérification anti-spam pas encore terminée */}
+      {status === "pending" && (
+        <div className="mt-4 flex items-start gap-2 text-sm text-[#3D3528] bg-[#EDE4D0] rounded-xl p-3">
+          <Loader2 className="w-4 h-4 mt-0.5 flex-shrink-0 animate-spin" />
+          <span>
+            <strong>{f.botTitle}.</strong> {f.botText}
+          </span>
+        </div>
+      )}
 
       {/* Erreur */}
       {status === "error" && (
@@ -241,6 +343,9 @@ export default function ContactForm({ lang = "fr" }) {
           <Mail className="w-4 h-4" />
           {f.orMail} <span className="font-semibold">{CONTACT_EMAIL}</span>
         </a>
+        {TURNSTILE_SITE_KEY && (
+          <p className="mt-2 text-[10px] text-[#3D352866]">{f.protectedBy}</p>
+        )}
       </div>
     </form>
   );
