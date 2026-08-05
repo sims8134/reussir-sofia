@@ -3,6 +3,7 @@ import ContactForm from "./components/ContactForm";
 import Seo from "./Seo";
 import StructuredData from "./StructuredData";
 import { Link } from "react-router-dom";
+import { LANGS, PATHS } from "./i18nPaths";
 import {
   ArrowRight,
   Check,
@@ -779,9 +780,11 @@ const FaqItem = ({ q, a, isOpen, onToggle }) => (
   </div>
 );
 
-/* ---------- COMPOSANT PRINCIPAL ---------- */
-export default function ReussirASofia() {
-  const [lang, setLang] = useState("fr");
+/* ---------- COMPOSANT PRINCIPAL ----------
+   La langue n'est plus un état interne : elle vient de l'URL, via la prop
+   `lang` passée par App.jsx (/ = fr, /en = en, /es = es).
+------------------------------------------- */
+export default function ReussirASofia({ lang = "fr" }) {
   const [openFaq, setOpenFaq] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const t = content[lang];
@@ -795,15 +798,9 @@ export default function ReussirASofia() {
 
   return (
     <div className="min-h-screen bg-[#F5EFE0] text-[#2C2620]">
-      {/* Métadonnées de la route / + données structurées (hissées vers <head> par React 19) */}
-      <Seo
-        title="Expatriation en Bulgarie sans la galère · Réussir à Sofia"
-        description="Couple franco-bulgare basé à Sofia. Tourisme, expatriation, carte de résidence, création d'EOOD. Accompagnement humain et complet en français, sur place. À partir de 250 €."
-        canonical="https://reussir-sofia.fr/"
-        ogTitle="Réussir à Sofia · Votre expatriation en Bulgarie, sans la galère"
-      />
+      {/* Métadonnées de la route + données structurées (hissées vers <head> par React 19) */}
+      <Seo lang={lang} page="home" />
       <StructuredData />
-
 
       {/* ---------- NAVBAR ---------- */}
       <nav className="sticky top-0 z-50 bg-[#F5EFE0]/85 backdrop-blur-md border-b border-[#3D352815]">
@@ -824,18 +821,18 @@ export default function ReussirASofia() {
 
           {/* Actions à droite */}
           <div className="flex items-center gap-2 md:gap-3">
-            {/* Sélecteur 3 langues */}
+            {/* Sélecteur de langue : liens vers de vraies URL, plus de setState */}
             <div className="flex items-center bg-[#EDE4D0] rounded-full p-1 text-xs font-semibold">
-              {["fr", "en", "es"].map((l) => (
-                <button
+              {LANGS.map((l) => (
+                <Link
                   key={l}
-                  onClick={() => setLang(l)}
+                  to={PATHS.home[l]}
                   className={`px-2.5 py-1 rounded-full transition-all uppercase ${
                     lang === l ? "bg-[#6B7F4A] text-[#F5EFE0]" : "text-[#3D3528]"
                   }`}
                 >
                   {l}
-                </button>
+                </Link>
               ))}
             </div>
             <a
@@ -1339,7 +1336,7 @@ export default function ReussirASofia() {
               <p className="text-sm mt-2 max-w-md">{t.footer.tagline}</p>
             </div>
             <div className="text-sm space-y-2 md:text-right">
-              <Link to="/legal" className="hover:text-[#C8985C] transition-colors">
+              <Link to={PATHS.legal[lang]} className="hover:text-[#C8985C] transition-colors">
                 {t.footer.legal}
               </Link>
               <div className="text-xs text-[#F5EFE0]/40">{t.footer.copy}</div>

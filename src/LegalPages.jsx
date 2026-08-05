@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ChevronDown, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import Seo from "./Seo";
+import { LANGS, PATHS } from "./i18nPaths";
 
 /* ─────────────────────────────────────────
    CONTENU LÉGAL – FR / EN / ES
@@ -630,10 +631,11 @@ function Section({ section }) {
 
 /* ─────────────────────────────────────────
    COMPOSANT PRINCIPAL
+   La langue vient de l'URL via la prop `lang`
+   (/legal = fr, /en/legal = en, /es/legal = es).
 ───────────────────────────────────────── */
-export default function LegalPages() {
-  const [lang, setLang]   = useState("fr");
-  const [doc, setDoc]     = useState("ml");
+export default function LegalPages({ lang = "fr" }) {
+  const [doc, setDoc] = useState("ml");
   const t = legal[lang];
   const content = t[doc];
 
@@ -644,11 +646,7 @@ export default function LegalPages() {
       className="min-h-screen bg-[#F5EFE0] text-[#2C2620]"
       style={{ fontFamily: "'DM Sans', system-ui, sans-serif" }}
     >
-      <Seo
-        title="Mentions légales, CGV & confidentialité · Réussir à Sofia"
-        description="Mentions légales, conditions générales de vente et politique de confidentialité de Réussir à Sofia — SOC TRADE BULGARIA EOOD, Sofia, Bulgarie."
-        canonical="https://reussir-sofia.fr/legal"
-      />
+      <Seo lang={lang} page="legal" />
 
       {/* ── HEADER ── */}
       <header className="sticky top-0 z-40 bg-[#2C2620] text-[#F5EFE0]">
@@ -656,7 +654,7 @@ export default function LegalPages() {
           {/* Logo + back */}
           <div className="flex items-center gap-4">
             <Link
-              to="/"
+              to={PATHS.home[lang]}
               className="flex items-center gap-1.5 text-[#F5EFE0]/60 hover:text-[#C8985C] transition-colors text-sm font-medium"
             >
               <ArrowLeft className="w-4 h-4" />
@@ -668,12 +666,12 @@ export default function LegalPages() {
             </span>
           </div>
 
-          {/* Lang switcher */}
+          {/* Lang switcher : liens vers de vraies URL */}
           <div className="flex items-center bg-[#F5EFE0]/10 rounded-full p-1 text-xs font-bold">
-            {["fr", "en", "es"].map((l) => (
-              <button
+            {LANGS.map((l) => (
+              <Link
                 key={l}
-                onClick={() => setLang(l)}
+                to={PATHS.legal[l]}
                 className={`px-3 py-1.5 rounded-full uppercase transition-all ${
                   lang === l
                     ? "bg-[#6B7F4A] text-[#F5EFE0]"
@@ -681,7 +679,7 @@ export default function LegalPages() {
                 }`}
               >
                 {l}
-              </button>
+              </Link>
             ))}
           </div>
         </div>

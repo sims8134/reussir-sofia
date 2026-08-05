@@ -5,7 +5,13 @@ import puppeteer from "puppeteer";
 
 const PORT = 4173;
 const BASE = `http://localhost:${PORT}`;
-const ROUTES = ["/", "/legal"];
+
+// Une entree par page a generer. Ajouter une route ici suffit.
+const ROUTES = ["/", "/en", "/es", "/legal", "/en/legal", "/es/legal"];
+
+// Langue deduite du prefixe d'URL, pour l'attribut <html lang="...">
+const langOf = (route) =>
+  route.startsWith("/en") ? "en" : route.startsWith("/es") ? "es" : "fr";
 
 async function waitForServer(url, timeoutMs = 20000) {
   const start = Date.now();
@@ -32,13 +38,19 @@ try {
   const page = await browser.newPage();
 
   // PHASE 1 : tout capturer AVANT d'ecrire quoi que ce soit.
+  // (Ecrire dist/index.html en cours de route contaminerait le repli SPA
+  // des routes suivantes avec les metadonnees de la home.)
   const captures = [];
   for (const route of ROUTES) {
     await page.goto(BASE + route, { waitUntil: "networkidle0" });
     await page.waitForSelector("#root > *", { timeout: 10000 });
-    const html =
+    let html =
       "<!doctype html>\n" +
       (await page.evaluate(() => document.documentElement.outerHTML));
+
+    // <html lang> corrige par route : React ne peut pas hisser cet attribut
+    html = html.replace(/<html lang="[a-z-]*"/i, `<html lang="${langOf(route)}"`);
+
     captures.push({ route, html });
   }
   await browser.close();
