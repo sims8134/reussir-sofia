@@ -35,7 +35,7 @@ const legal = {
         },
         {
           heading: "2. Hébergement",
-          text: "L'hébergeur du site sera précisé lors de la mise en ligne. Pour toute question : contact@reussir-sofia.fr.",
+          text: "Le site est hébergé par Vercel Inc., 440 N. Barranca Ave #4133, Covina, CA 91723, États-Unis (vercel.com). Le nom de domaine est enregistré et le site déployé depuis l'Union européenne. Pour toute question : contact@reussir-sofia.fr.",
         },
         {
           heading: "3. Directeur de la publication",
@@ -183,7 +183,7 @@ const legal = {
         },
         {
           heading: "8. Sécurité & transferts",
-          text: "Vos données sont traitées au sein de l'UE (Bulgarie). Des mesures techniques et organisationnelles appropriées sont mises en œuvre pour les protéger. Aucun transfert hors UE sans garanties adéquates.",
+          text: "Vos données de dossier sont traitées au sein de l'Union européenne. L'hébergement du site est assuré par Vercel Inc. (États-Unis), ce qui implique un transfert de données techniques de navigation hors UE, encadré par les clauses contractuelles types de la Commission européenne. Des mesures techniques et organisationnelles appropriées sont mises en œuvre pour protéger vos données.",
         },
       ],
     },
@@ -216,7 +216,7 @@ const legal = {
         },
         {
           heading: "2. Hosting",
-          text: "Hosting provider details will be published upon website launch. Contact: contact@reussir-sofia.fr.",
+          text: "The website is hosted by Vercel Inc., 440 N. Barranca Ave #4133, Covina, CA 91723, United States (vercel.com). Contact: contact@reussir-sofia.fr.",
         },
         {
           heading: "3. Publication Director",
@@ -364,7 +364,7 @@ const legal = {
         },
         {
           heading: "8. Security & Transfers",
-          text: "Your data is processed within the EU (Bulgaria). Appropriate measures protect it. No transfers outside the EU without adequate safeguards.",
+          text: "Your case data is processed within the European Union. The website is hosted by Vercel Inc. (United States), which involves a transfer of technical browsing data outside the EU, governed by the European Commission's standard contractual clauses. Appropriate technical and organisational measures are in place to protect your data.",
         },
       ],
     },
@@ -397,7 +397,7 @@ const legal = {
         },
         {
           heading: "2. Alojamiento web",
-          text: "Los datos del proveedor de alojamiento se publicarán con el lanzamiento del sitio. Contacto: contact@reussir-sofia.fr.",
+          text: "El sitio está alojado por Vercel Inc., 440 N. Barranca Ave #4133, Covina, CA 91723, Estados Unidos (vercel.com). Contacto: contact@reussir-sofia.fr.",
         },
         {
           heading: "3. Director de publicación",
@@ -545,7 +545,7 @@ const legal = {
         },
         {
           heading: "8. Seguridad y transferencias",
-          text: "Sus datos se tratan dentro de la UE (Bulgaria). Se adoptan medidas adecuadas para protegerlos. No se realizan transferencias fuera de la UE sin garantías apropiadas.",
+          text: "Los datos de su expediente se tratan dentro de la Unión Europea. El alojamiento del sitio corre a cargo de Vercel Inc. (Estados Unidos), lo que implica una transferencia de datos técnicos de navegación fuera de la UE, amparada por las cláusulas contractuales tipo de la Comisión Europea. Se aplican medidas técnicas y organizativas adecuadas para proteger sus datos.",
         },
       ],
     },
