@@ -804,19 +804,6 @@ export default function ReussirASofia() {
       />
       <StructuredData />
 
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
-        .font-display { font-family: 'Fraunces', Georgia, serif; font-optical-sizing: auto; }
-        .font-body { font-family: 'DM Sans', system-ui, sans-serif; }
-        body { font-family: 'DM Sans', system-ui, sans-serif; }
-        .grain {
-          background-image: radial-gradient(rgba(61,53,40,0.06) 1px, transparent 1px);
-          background-size: 3px 3px;
-        }
-        .ornament-line {
-          background: linear-gradient(90deg, transparent, #6B7F4A40, transparent);
-        }
-      `}</style>
 
       {/* ---------- NAVBAR ---------- */}
       <nav className="sticky top-0 z-50 bg-[#F5EFE0]/85 backdrop-blur-md border-b border-[#3D352815]">

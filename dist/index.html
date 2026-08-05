@@ -1,11 +1,10 @@
 <!doctype html>
 <html lang="fr">
   <head>
-    <!-- Head réduit aux balises réellement globales.
-         Title, description, canonical, hreflang, Open Graph, Twitter et
-         JSON-LD sont désormais rendus PAR ROUTE dans les composants React
-         (Seo.jsx + blocs JSON-LD de ReussirASofia) et capturés dans le HTML
-         final par le prerender. Ne pas les redéclarer ici : doublons. -->
+    <!-- Head reduit aux balises globales : title, description, canonical,
+         hreflang, Open Graph, Twitter et JSON-LD sont rendus PAR ROUTE
+         dans les composants React (Seo.jsx + StructuredData.jsx).
+         Ne pas les redeclarer ici : doublons. -->
     <meta charset="UTF-8" />
     <meta name="google-site-verification" content="WMWSo7RF5_mGlawHVf3VNkngI2hwdhwZXlKdOVR6ZhM" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,11 +12,20 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
 
-    <!-- À supprimer le jour où les polices seront auto-hébergées (Fontsource) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <script type="module" crossorigin src="/assets/index-BPmKKqte.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-0kAZvRdY.css">
+    <!-- Prechargement de l'image hero : c'est l'element LCP de la page.
+         Sans cette ligne, le navigateur ne la decouvre qu'apres avoir
+         execute tout le bundle React. -->
+    <link
+      rel="preload"
+      as="image"
+      href="/images/sofia/hero-cathedrale.jpg"
+      fetchpriority="high"
+    />
+
+    <!-- Plus de preconnect Google Fonts : les polices sont desormais
+         auto-hebergees (voir src/index.css). -->
+    <script type="module" crossorigin src="/assets/index-Bg0x2pZT.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DYZJvhwW.css">
   </head>
   <body>
     <div id="root"></div>

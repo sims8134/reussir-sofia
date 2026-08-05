@@ -1,13 +1,59 @@
+/* ==========================================================
+   POLICES AUTO-HEBERGEES (Fontsource)
+   Remplacent l'@import Google Fonts qui etait injecte par les
+   composants React : le navigateur ne decouvrait la requete
+   qu'apres avoir telecharge et execute tout le bundle.
+   Bonus : plus aucun transfert d'IP visiteur vers Google.
+   Sous-ensemble latin uniquement (FR / EN / ES).
+========================================================== */
+@import "@fontsource/fraunces/latin-300.css";
+@import "@fontsource/fraunces/latin-400.css";
+@import "@fontsource/fraunces/latin-500.css";
+@import "@fontsource/fraunces/latin-600.css";
+@import "@fontsource/fraunces/latin-700.css";
+@import "@fontsource/dm-sans/latin-300.css";
+@import "@fontsource/dm-sans/latin-400.css";
+@import "@fontsource/dm-sans/latin-500.css";
+@import "@fontsource/dm-sans/latin-600.css";
+@import "@fontsource/dm-sans/latin-700.css";
+
 @import "tailwindcss";
 
 /* ==========================================================
+   Familles de polices (etaient declarees dans les <style> des
+   composants, desormais centralisees ici)
+========================================================== */
+body {
+  font-family: "DM Sans", system-ui, sans-serif;
+}
+
+.font-display {
+  font-family: "Fraunces", Georgia, serif;
+  font-optical-sizing: auto;
+}
+
+.font-body {
+  font-family: "DM Sans", system-ui, sans-serif;
+}
+
+/* ==========================================================
+   Effets decoratifs (idem : deplaces depuis les composants)
+========================================================== */
+.grain {
+  background-image: radial-gradient(rgba(61, 53, 40, 0.06) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
+
+.ornament-line {
+  background: linear-gradient(90deg, transparent, #6b7f4a40, transparent);
+}
+
+/* ==========================================================
    Scrollbar aux couleurs du site
-   Vert olive #6B7F4A sur fond crème #EDE4D0.
-   `scrollbar-color` couvre Firefox ; les pseudo-elements
-   ::-webkit-* couvrent Chrome, Edge, Safari et Opera.
+   Vert olive #6B7F4A sur fond creme #EDE4D0.
 ========================================================== */
 html {
-  scrollbar-color: #6B7F4A #EDE4D0;
+  scrollbar-color: #6b7f4a #ede4d0;
   scrollbar-width: thin;
 }
 
@@ -17,19 +63,19 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: #EDE4D0;
+  background: #ede4d0;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #6B7F4A;
+  background: #6b7f4a;
   border-radius: 999px;
-  border: 2px solid #EDE4D0; /* marge interne : la barre parait plus fine */
+  border: 2px solid #ede4d0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #5A6B3F;
+  background: #5a6b3f;
 }
 
 ::-webkit-scrollbar-corner {
-  background: #EDE4D0;
+  background: #ede4d0;
 }

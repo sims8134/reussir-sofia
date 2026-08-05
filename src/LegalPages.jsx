@@ -649,10 +649,6 @@ export default function LegalPages() {
         description="Mentions légales, conditions générales de vente et politique de confidentialité de Réussir à Sofia — SOC TRADE BULGARIA EOOD, Sofia, Bulgarie."
         canonical="https://reussir-sofia.fr/legal"
       />
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600&family=DM+Sans:wght@300;400;500;600;700&display=swap');
-        .font-display { font-family: 'Fraunces', Georgia, serif; }
-      `}</style>
 
       {/* ── HEADER ── */}
       <header className="sticky top-0 z-40 bg-[#2C2620] text-[#F5EFE0]">
